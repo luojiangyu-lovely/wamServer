@@ -1,6 +1,6 @@
 from flask import Flask
 from app.settings import BASE_DIR
-
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -15,8 +15,8 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
     # # 注册blog的视图文件
-    # from apps.uCouch.view import uCouch_bp
-    # from apps.teamTb.view import teamTb_bp
+    from app.login.view import login_bp
+    from  app.users.view import user_bp
     # from apps.configTb.view import configTb_bp
     # from apps.languageTb.view import languageTb_bp
     # from apps.gameReportTb.view import gameReportTb_bp
@@ -26,8 +26,8 @@ def create_app(test_config=None):
     # from apps.teamsBattleTb.view import teamsBattleTb_bp
 
 
-    # app.register_blueprint(uCouch_bp)
-    # app.register_blueprint(teamTb_bp)
+    app.register_blueprint(login_bp)
+    app.register_blueprint(user_bp)
     # app.register_blueprint(configTb_bp)
     # app.register_blueprint(teamsBattleTb_bp)
     # app.register_blueprint(languageTb_bp)
@@ -35,6 +35,7 @@ def create_app(test_config=None):
     # app.register_blueprint(importTb_bp)
     # app.register_blueprint(winRateSimTb_bp)
     # app.register_blueprint(mapTb_bp)
+    CORS(app)
     return app
 
 
